@@ -6,7 +6,7 @@ Only For Windows
 
 [^所有Python模块下载到同一目录，需要的库安装齐全情况下可运行，或直接下载ScreenHealth2.0release.exe（若有报毒请忽略）]: All Python modules can be downloaded to the same directory and run when the required libraries are fully installed, or directly download screenhealth2.0release exe
 
-<img src="https://s1.ax1x.com/2022/06/30/jK5wzF.png" alt="jK5wzF.png" alt="image1" style="zoom:15%;" />
+<img src="https://s1.ax1x.com/2022/06/30/jK5wzF.png" alt="jK5wzF.png" alt="image1" style="zoom:5%;" />
 
 ✅功能 | function
 
@@ -88,7 +88,7 @@ color_use = ['palegreen', 'tomato', 'sandybrown', 'darkseagreen', 'paleturquoise
 
 遵循plt颜色规则  Follow PLT color rules
 
-<img src="C:\Users\张丰伟\AppData\Roaming\Typora\typora-user-images\image-20220630172911066.png" alt="image-20220630172911066" style="zoom: 33%;" />
+<img src="https://s1.ax1x.com/2022/06/30/jK5BM4.png" alt="image-20220630172911066" style="zoom: 33%;" />
 
 🍳主题更换 | Themes
 
@@ -148,7 +148,7 @@ Chart pictures must use global variables, or they will be swallowed.
 Ttkboostrap library beautification.
 In addition to the absolute layout for daily total duration, the package () layout is better used for resolution adaptation in versions after 2.0beta3 release.
 
-<img src="C:\Users\张丰伟\AppData\Roaming\Typora\typora-user-images\image-20220630182311064.png" alt="image-20220630182311064" style="zoom: 33%;" />
+<img src="https://s1.ax1x.com/2022/06/30/jK5dRU.png" alt="image-20220630182311064" style="zoom: 33%;" />
 
 ✅异常处理 | Exception
 
