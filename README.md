@@ -6,7 +6,7 @@ Only For Windows
 
 [^所有Python模块下载到同一目录，需要的库安装齐全情况下可运行，或直接下载ScreenHealth2.0release.exe（若有报毒请忽略）]: All Python modules can be downloaded to the same directory and run when the required libraries are fully installed, or directly download screenhealth2.0release exe
 
-<img src="\img\1.png" alt="image-20220630182214364" style="zoom:25%;" />
+<img src="/imag/1.png" alt="image1" style="zoom:25%;" />
 
 ✅功能 | function
 
