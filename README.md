@@ -1,4 +1,4 @@
-# **ScreenHealth 2.0**
+# **ScreenHealth 2.1**
 
 Only For Windows
 
@@ -6,10 +6,11 @@ Only For Windows
 
 所有Python模块下载到同一目录，需要的库安装齐全情况下可运行，或直接下载ScreenHealth2.0release.exe（若有报毒请忽略） All Python modules can be downloaded to the same directory and run when the required libraries are fully installed, or directly download screenhealth2.0release exe
 
-点击下载==> https://wwi.lanzoup.com/idPlP075z7fa  <==touch to download
+点击下载V2.0==> https://wwi.lanzoup.com/idPlP075z7fa  <==touch to download(2.0release)
+点击下载V2.1==> https://wwi.lanzoup.com/ii7mg07od37a  <==touch to download(2.1release)
 
 
-<img src="https://s1.ax1x.com/2022/06/30/jK5wzF.png" alt="jK5wzF.png" alt="image1" style="zoom:5%;" />
+<img src="http://i.miaosu.bid/data/f_83699723.jpg" alt="jK5wzF.png" alt="image1" style="zoom:5%;" />
 
 ✅功能 | function
 
@@ -96,6 +97,8 @@ color_use = ['palegreen', 'tomato', 'sandybrown', 'darkseagreen', 'paleturquoise
 🍳主题更换 | Themes
 
 参考：https://ttkbootstrap.readthedocs.io/en/latest/
+  深色模式 | DarkMode
+图表配色：#333333
 
 🍳计时逻辑 | Timing logic
 
@@ -208,5 +211,10 @@ os , multiprocessing , win32(win32gui) , win32process , time , datetime , psutil
 > ==>图表标题变为对应日期
 > ==>添加日总时长
 > ==>新增应用图标
+
+*2.1 Release：
+==>新增DarkMode(深色模式)
+==>支持查看过去一周统计
+==>优化3456*2160|1920*1080窗口
 > ```
 
