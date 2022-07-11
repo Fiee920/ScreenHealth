@@ -13,15 +13,14 @@ import demo
 import Draw
 import Screen
 import VAR
-
+import week
 
 
 class Application(tkinter.Frame):
-
     now = datetime.now()
     today = now.strftime("%Y-%m-%d %H:%M:%S")[:10]
 
-    def sum_time(self,ndate=today):
+    def sum_time(self, ndate=today):
         sum = 0
         backup_path = r'./data/' + ndate + r'_backup.txt'
 
@@ -43,26 +42,46 @@ class Application(tkinter.Frame):
         self.Win()
 
     def Win(self):
-        global img_png,DPI,frame,date1
+        global img_png, DPI, frame, date1
+        v = ttkbootstrap.IntVar()
+        v.set(int(VAR.darkmode))
         frame = ttkbootstrap.Frame()
-        ttkbootstrap.Label(frame, text="ScreenHealth", bootstyle='dark').pack(side=TOP, anchor=CENTER)
+        if VAR.darkmode == '1':
+            ttkbootstrap.Label(frame, text="ScreenHealth", bootstyle='light').pack(side=TOP, anchor=CENTER)
+        else:
+            ttkbootstrap.Label(frame, text="ScreenHealth", bootstyle='dark').pack(side=TOP, anchor=CENTER)
         dic1 = {}
-        Draw.Draw(dic1,VAR.DPI)
+        Draw.Draw(dic1, VAR.DPI)
         img_open = Image.open(".\data\Pic.jpg")
         VAR.img_png = ImageTk.PhotoImage(img_open)
         label_img = ttkbootstrap.Label(frame, image=VAR.img_png)
         label_img.pack(side=RIGHT)
         self.update_idletasks()
-        ttkbootstrap.Button(frame, text="启动屏幕时间采集", style='success.TButton', command=lambda: self.click(1),width=20).pack(side=TOP, anchor=N, fill=X)
-        ttkbootstrap.Button(frame, style='danger', text="终止采集", command=lambda: self.click(2)).pack(side=TOP, anchor=N,fill=X)
-        ttkbootstrap.Button(frame, style='success.Outline.TButton', text="采集暂停/继续", command=lambda: self.click(3)).pack(side=TOP, anchor=N, fill=X)
-        ttkbootstrap.Button(frame, text="刷新今日图表", style='primary', command=lambda: self.reDraw()).pack(side=TOP, anchor=N,fill=X)
+        ttkbootstrap.Button(frame, text="启动屏幕时间采集", style='success.TButton', command=lambda: self.click(1),
+                            width=20).pack(side=TOP, anchor=N, fill=X)
+        ttkbootstrap.Button(frame, style='danger', text="终止采集", command=lambda: self.click(2)).pack(side=TOP, anchor=N,
+                                                                                                    fill=X)
+        ttkbootstrap.Button(frame, style='success.Outline.TButton', text="采集暂停/继续", command=lambda: self.click(3)).pack(
+            side=TOP, anchor=N, fill=X)
+        ttkbootstrap.Button(frame, text="刷新今日图表", style='primary', command=lambda: self.reDraw()).pack(side=TOP,
+                                                                                                       anchor=N, fill=X)
         date1 = ttkbootstrap.DateEntry(frame)
         date1.pack()
-        ttkbootstrap.Button(frame, text="刷新该日图表", style='info', command=lambda: self.ToreDraw()).pack(side=TOP, anchor=S,fill=X)
-        ttkbootstrap.Button(frame, text="版本信息", style='warning.Outline', command=lambda: self.click(5)).pack(side=TOP,anchor=N,fill=X)
+        ttkbootstrap.Button(frame, text="刷新该日图表", style='info', command=lambda: self.ToreDraw()).pack(side=TOP,
+                                                                                                      anchor=S, fill=X)
+        ttkbootstrap.Button(frame, text="7日统计", style='info.Outline.TButton', command=lambda: self.weekDraw()).pack(
+            side=TOP, anchor=N, fill=X)
+        ttkbootstrap.Button(frame, text="版本信息", style='warning.Outline', command=lambda: self.click(5)).pack(side=TOP,
+                                                                                                             anchor=N,
+                                                                                                             fill=X)
+        ttkbootstrap.Checkbutton(frame, text='深色模式', variable=v, bootstyle="success-round-toggle",
+                                 command=lambda: self.setDarkMode()).pack(side=TOP, anchor=N, fill=X)
         ttkbootstrap.Label(frame, text="日总时长：{} 分钟".format(self.sum_time()), font=('宋体', 6)).place(relx=0.7, rely=0.2)
         frame.pack()
+
+    def weekDraw(self):
+        week.LastWeek()
+        self.reDraw(mode=1)
 
     def ToreDraw(self):
         date1_ = str(date1.entry.get())
@@ -74,44 +93,79 @@ class Application(tkinter.Frame):
         date1_ = '{0}-{1:0>2s}-{2:0>2s}'.format(year, month, day)
         self.reDraw(ndate=date1_)
 
-    def reDraw(self,ndate=today):
-        global frame,date1,num1
-        backup_path = r'./data/' + str(ndate) + r'_backup.txt'
-        if os.path.exists(backup_path):
-            f = open(backup_path, 'r')
-            cc = f.read()
-            newDic = eval(cc)
-            Draw.Draw(newDic,VAR.DPI,ndate)
-            VAR.num1 = 1
-        else:
-            tkinter.messagebox.showinfo(title='提示', message="错误：无该日数据记录")
+    def reDraw(self, ndate=today, mode=0):
+        global frame, date1, num1
+        v = ttkbootstrap.IntVar()
+        v.set(int(VAR.darkmode))
+        if mode == 0:
+            backup_path = r'./data/' + str(ndate) + r'_backup.txt'
+            if os.path.exists(backup_path):
+                f = open(backup_path, 'r')
+                cc = f.read()
+                newDic = eval(cc)
+                Draw.Draw(newDic, VAR.DPI, ndate)
+                VAR.num1 = 1
+            else:
+                tkinter.messagebox.showinfo(title='提示', message="错误：无该日数据记录")
+        if mode == 1:
+            pass
 
-        if VAR.num1 != 0:
+        if VAR.num1 != 0 or mode == 1:
             frame.destroy()
             frame = ttkbootstrap.Frame()
-            ttkbootstrap.Label(frame, text="ScreenHealth", bootstyle='dark').pack(side=TOP, anchor=CENTER)
+            if VAR.darkmode == '1':
+                ttkbootstrap.Label(frame, text="ScreenHealth", bootstyle='light').pack(side=TOP, anchor=CENTER)
+            else:
+                ttkbootstrap.Label(frame, text="ScreenHealth", bootstyle='dark').pack(side=TOP, anchor=CENTER)
             global img_png
             img_open = Image.open(".\data\Pic.jpg")
             VAR.img_png = ImageTk.PhotoImage(img_open)
             label_img = ttkbootstrap.Label(frame, image=VAR.img_png)
             label_img.pack(side=RIGHT)
-            ttkbootstrap.Button(frame, text="启动屏幕时间采集", style='success.TButton', command=lambda: self.click(1),width=20).pack(side=TOP, anchor=N, fill=X)
-            ttkbootstrap.Button(frame, style='danger', text="终止采集", command=lambda: self.click(2)).pack(side=TOP,anchor=N, fill=X)
-            ttkbootstrap.Button(frame, style='success.Outline.TButton', text="采集暂停/继续",command=lambda: self.click(3)).pack(side=TOP, anchor=N, fill=X)
-            ttkbootstrap.Button(frame, text="刷新今日图表", style='primary', command=lambda: self.reDraw()).pack(side=TOP, anchor=N,fill=X)
+            ttkbootstrap.Button(frame, text="启动屏幕时间采集", style='success.TButton', command=lambda: self.click(1),
+                                width=20).pack(side=TOP, anchor=N, fill=X)
+            ttkbootstrap.Button(frame, style='danger', text="终止采集", command=lambda: self.click(2)).pack(side=TOP,
+                                                                                                        anchor=N,
+                                                                                                        fill=X)
+            ttkbootstrap.Button(frame, style='success.Outline.TButton', text="采集暂停/继续",
+                                command=lambda: self.click(3)).pack(side=TOP, anchor=N, fill=X)
+            ttkbootstrap.Button(frame, text="刷新今日图表", style='primary', command=lambda: self.reDraw()).pack(side=TOP,
+                                                                                                           anchor=N,
+                                                                                                           fill=X)
 
             date1 = ttkbootstrap.DateEntry(frame)
             date1.pack()
-            ttkbootstrap.Button(frame, text="刷新该日图表", style='info', command=lambda: self.ToreDraw()).pack(side=TOP,anchor=S,fill=X)
-            ttkbootstrap.Button(frame, text="版本信息", style='warning.Outline', command=lambda: self.click(5)).pack(side=TOP, anchor=N, fill=X)
-            if ndate!=self.__class__.today:
-                ttkbootstrap.Label(frame,text="日总时长：{} 分钟".format(self.sum_time(ndate=ndate)),font=('宋体',6)).place(relx=0.7,rely=0.2)
-            else:
-                ttkbootstrap.Label(frame, text="日总时长：{} 分钟".format(self.sum_time()), font=('宋体', 6)).place(relx=0.7, rely=0.2)
+            ttkbootstrap.Button(frame, text="刷新该日图表", style='info', command=lambda: self.ToreDraw()).pack(side=TOP,
+                                                                                                          anchor=S,
+                                                                                                          fill=X)
+            ttkbootstrap.Button(frame, text="7日统计", style='info.Outline.TButton', command=lambda: self.weekDraw()).pack(
+                side=TOP, anchor=N, fill=X)
+            ttkbootstrap.Button(frame, text="版本信息", style='warning.Outline', command=lambda: self.click(5)).pack(
+                side=TOP, anchor=N, fill=X)
+            ttkbootstrap.Checkbutton(frame, text='深色模式', variable=v, bootstyle="success-round-toggle",
+                                     command=lambda: self.setDarkMode()).pack(side=TOP, anchor=N, fill=X)
+            if mode == 0:
+                if ndate != self.__class__.today:
+                    ttkbootstrap.Label(frame, text="日总时长：{} 分钟".format(self.sum_time(ndate=ndate)),
+                                       font=('宋体', 6)).place(relx=0.7, rely=0.2)
+                else:
+                    ttkbootstrap.Label(frame, text="日总时长：{} 分钟".format(self.sum_time()), font=('宋体', 6)).place(relx=0.7,
+                                                                                                               rely=0.2)
             frame.pack()
         else:
             tkinter.messagebox.showinfo(title='提示', message="今日暂无采集记录，刷新图片前请开启时间管理采集")
-            VAR.num1=0
+            VAR.num1 = 0
+
+    def setDarkMode(self):
+        if VAR.darkmode == '1':
+            f = open(".\data\settings.txt", 'w')
+            f.write('0')
+            f.close()
+        else:
+            f = open(".\data\settings.txt", 'w')
+            f.write('1')
+            f.close()
+        tkinter.messagebox.showinfo(title='提示', message="主题已变更，手动重启软件立即生效")
 
     def click(self, num):
         global num1, W, H
@@ -121,7 +175,7 @@ class Application(tkinter.Frame):
         if num == 2:
             if VAR.num1 != 0:
                 mp1.terminate()
-                VAR.num1=0
+                VAR.num1 = 0
                 tkinter.messagebox.showinfo(title='提示', message="采集进程已终止，当前版本无法再次直接启用！如需启用，请退出后重新打开应用！")
             else:
                 tkinter.messagebox.showinfo(title='提示', message="错误：无法终止采集进程（您还未开启时间管理采集进程）")
@@ -161,7 +215,7 @@ class Application(tkinter.Frame):
 
 # 更新日志：            
 *1.1 Release:
-==>GUI
+==>GUI支持
 
 *1.2 Release:
 ==>在文件目录下创建data文件用于存储数据
@@ -185,6 +239,11 @@ class Application(tkinter.Frame):
 ==>图表标题变为对应日期
 ==>添加日总时长
 ==>新增应用图标
+
+*2.1 Release：
+==>新增DarkMode(深色模式)
+==>支持查看过去一周统计
+==>优化3456*2160|1920*1080窗口
             """
             result = tkinter.messagebox.showinfo(title='版本说明', message=message)
 
@@ -193,17 +252,19 @@ if __name__ == '__main__':
 
     multiprocessing.freeze_support()
 
-    folder_path = ".\data"
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-    W, H = Screen.get_screen_size()
-    VAR.size = str(int(W * 0.55)) + 'x' + str(int(H * 0.5)) + '+' + str(int(W * 0.25)) + '+' + str(int(H * 0.25))
-    VAR.DPI = Screen.Screen_Size_Fix(W, H)
-    mp1 = multiprocessing.Process(target=demo.main, args=(VAR.DPI,))
-    root = ttkbootstrap.Window(scaling=VAR.scaling_index)
-    style = Style(theme='litera')
-    root = style.master
-    root.title("Screen Health")
-    root.geometry(VAR.size)
-    application = Application(root=root)
-    application.mainloop()
+    if VAR.start():
+        W, H = Screen.get_screen_size()
+        VAR.size = str(int(W * 0.55)) + 'x' + str(int(H * 0.5)) + '+' + str(int(W * 0.25)) + '+' + str(int(H * 0.25))
+        VAR.DPI = Screen.Screen_Size_Fix(W, H)
+        mp1 = multiprocessing.Process(target=demo.main, args=(VAR.DPI,))
+        root = ttkbootstrap.Window(scaling=VAR.scaling_index)
+        if VAR.darkmode == '1':
+            style = Style(theme='darkly')
+        else:
+            style = Style(theme='litera')
+        root = style.master
+        root.title("Screen Health")
+        root.geometry(VAR.size)
+        application = Application(root=root)
+        print(VAR.darkmode)
+        application.mainloop()
