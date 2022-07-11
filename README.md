@@ -8,7 +8,7 @@ Only For Windows
 
 点击下载V2.0==> https://wwi.lanzoup.com/idPlP075z7fa  <==touch to download(2.0release)
 
-点击下载V2.1==> https://wwi.lanzoup.com/ii7mg07od37a  <==touch to download(2.1release)
+点击下载V2.1==> None (打包版本有bug下次打包修复（2.2）)  <==touch to download(2.1release)
 
 
 <img src="http://i.miaosu.bid/data/f_83699723.jpg" alt="jK5wzF.png" alt="image1" style="zoom:5%;" />
