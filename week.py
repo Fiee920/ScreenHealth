@@ -30,5 +30,4 @@ def LastWeek():
             week_dic[day] = sum
         else:
             week_dic[day] = 0
-    week_dic = {'2022-07-09': 13, '2022-07-08': 69.0, '2022-07-07': 34.5, '2022-07-06': 77.3, '2022-07-05': 60, '2022-07-04': 97.2, '2022-07-03': 33.3}
     Draw.Draw_plus(week_dic, VAR.DPI, mode=1)
