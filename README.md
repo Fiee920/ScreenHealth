@@ -7,6 +7,7 @@ Only For Windows
 所有Python模块下载到同一目录，需要的库安装齐全情况下可运行，或直接下载ScreenHealth2.0release.exe（若有报毒请忽略） All Python modules can be downloaded to the same directory and run when the required libraries are fully installed, or directly download screenhealth2.0release exe
 
 点击下载V2.0==> https://wwi.lanzoup.com/idPlP075z7fa  <==touch to download(2.0release)
+
 点击下载V2.1==> https://wwi.lanzoup.com/ii7mg07od37a  <==touch to download(2.1release)
 
 
@@ -97,7 +98,9 @@ color_use = ['palegreen', 'tomato', 'sandybrown', 'darkseagreen', 'paleturquoise
 🍳主题更换 | Themes
 
 参考：https://ttkbootstrap.readthedocs.io/en/latest/
+
   深色模式 | DarkMode
+  
 图表配色：#333333
 
 🍳计时逻辑 | Timing logic
